@@ -50,7 +50,6 @@ F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Micro
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
-F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Newtonsoft.Json.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\System.Runtime.Caching.dll
@@ -74,3 +73,4 @@ F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Castl
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\AzmoonTracker.ViewModels.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\AzmoonTracker.ViewModels.pdb
+F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
