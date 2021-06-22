@@ -20,7 +20,7 @@ namespace AzmoonTracker.Controllers
             takeExamRepository = _takeExamRepository;
         }
 
-        [HttpPost("/EnrollExam/{ExamId}")]
+        [HttpPost("EnrollExam/{ExamId}")]
         public async Task<IActionResult> EnrollExam(string ExamId)
         {
 
@@ -33,7 +33,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
-        [HttpDelete("/UnenrollExam/{ExamId}")]
+        [HttpDelete("UnenrollExam/{ExamId}")]
         public async Task<IActionResult> EnrollExamAsync(string ExamId)
         {
             //TODO: check the clock
@@ -46,7 +46,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
-        [HttpPut("/WriteAnswer")]
+        [HttpPut("WriteAnswer")]
         public async Task<IActionResult> SubmitAnswer(AnswerViewModel answer)
         {
             if (!ModelState.IsValid)

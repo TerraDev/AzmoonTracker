@@ -1,5 +1,7 @@
 ﻿using AzmoonTracker.Services.ExamRepository;
 using AzmoonTracker.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,13 +22,13 @@ namespace AzmoonTracker.Controllers
             examRepository=_examRepository;
         }
 
-        [HttpGet("/GetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllExams()
         {
             return Ok(examRepository.GetAllExams());
         }
 
-        [HttpGet("/Get/{ExamId}")]
+        [HttpGet("Get/{ExamId}")]
         public IActionResult GetExam(String ExamId)
         {
             ExamViewModel examView = examRepository.GetExam(ExamId);
@@ -36,7 +38,7 @@ namespace AzmoonTracker.Controllers
                 return Ok(examView);
         }
 
-        [HttpPost("/Create/")]
+        [HttpPost("Create/")]
         public async Task<IActionResult> CreateExam(ExamViewModel examView)
         {
             if(!ModelState.IsValid)
@@ -60,7 +62,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
-        [HttpPut("/Update/{ExamId}")]
+        [HttpPut("Update/{ExamId}")]
         public async Task<IActionResult> UpdateExamAsync(ExamViewModel examView, String ExamId)
         {
             if (!ModelState.IsValid)
@@ -83,7 +85,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
-        [HttpDelete("/Delete/{ExamId}")]
+        [HttpDelete("Delete/{ExamId}")]
         public async Task<IActionResult> DeleteExamAsync(String ExamId)
         {
             if(!examRepository.DeleteExam(ExamId))

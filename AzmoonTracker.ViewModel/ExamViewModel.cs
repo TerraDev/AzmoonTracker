@@ -7,8 +7,8 @@ namespace AzmoonTracker.ViewModels
 {
     public class ExamViewModel
     {
-        [Required]
-        [MaxLength(30)]
+        //[Required]
+        //[MaxLength(30)]
         public String ExamId { get; set; }//TODO: comment out
 
         [Required]

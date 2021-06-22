@@ -1,0 +1,54 @@
+/* main content styles */
+.container {
+  padding: 10px;
+  margin: 50px 5%;
+}
+
+.main_exam_cards {
+  display: grid;
+  gap: 1.5em;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  overflow: hidden;
+}
+
+.exam_card {
+  background-color: #aabaecdc;
+  color: black;
+  height: 310px;
+  width: 200px;
+  padding: 10px;
+  box-shadow: inset 0px 0px 60px 20px #7cb4cc;
+  -webkit-box-reflect: right 0px -webkit-gradient(linear, left top, right top, from(transparent), color-stop(87%, transparent), to(rgba(255, 255, 255, 0.18)));
+  margin-bottom: 27px;
+}
+
+/* why it doesn't work???*/
+.exam_card:hover {
+  background-color: rgb(0, 0, 205);
+}
+
+.exam_card img {
+  width: 100%;
+  height: 40%;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.ad {
+  height: 170px;
+  background-color: #8b8b8b;
+  margin: 40px 36px; /*up right down left*/
+  visibility: hidden;
+}
+
+/* page footer styles */
+footer {
+  color: #bdbdbd;
+  padding: 0 16px 16px 16px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 50px 0;
+  }
+}

@@ -14,6 +14,7 @@ namespace AzmoonTracker.Models
 
         [Required]
         [MaxLength(30)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public String ExamId { get; set; }
 
         [Required]

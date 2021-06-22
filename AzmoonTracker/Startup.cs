@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,6 +46,16 @@ namespace AzmoonTracker
 
             services.AddIdentityCore<AppUser>()
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = 1;
+            });
             // services.AddDefaultIdentity<ApplicationUser>(options=> //or <IdentityUser>
             //options.SignIn.RequireConfirmedAccount = true)
             //  .AddEntityFrameworkStores<AppDbContext>();
@@ -88,9 +99,33 @@ namespace AzmoonTracker
                        )) ;
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AzmoonTracker", Version = "v1" });
+            services.AddSwaggerGen(
+            swagger => {
+                swagger.SwaggerDoc(
+                "v1", new OpenApiInfo { Title = "BShop API" });
+
+                swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
+                    Description = "Please insert JWT token into field"
+                });
+                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                  }
+                });
             });
         }
 
