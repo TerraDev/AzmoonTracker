@@ -73,7 +73,6 @@ namespace AzmoonTracker.Services.UserRepository
             return authResult;
         }
 
-
         public async Task<AuthResult> LoginAsync(LoginViewModel LogVM)
         {
             {

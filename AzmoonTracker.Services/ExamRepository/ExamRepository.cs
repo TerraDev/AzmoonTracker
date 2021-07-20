@@ -5,16 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace AzmoonTracker.Services.ExamRepository
 {
     public class ExamRepository : IExamRepository
     {
         private readonly AppDbContext ctx;
+        private readonly UserManager<AppUser> userManager;
 
-        public ExamRepository(AppDbContext _ctx)
+        public ExamRepository(AppDbContext _ctx, UserManager<AppUser> _userManager)
         {
             ctx = _ctx;
+            userManager = _userManager;
         }
 
         public ICollection<ExamViewModel> GetAllExams()
@@ -155,6 +159,47 @@ namespace AzmoonTracker.Services.ExamRepository
         {
             ctx.Exams.Remove(ctx.Exams.Find(examId));
             return true;
+        }
+
+        public List<AnswerViewModel> GetAnswer(string examId, string UserId)
+        {
+            UserParticipateInExam participant = ctx.UsersParticipateInExams.Where(o => o.ExamFK == examId && o.ParticipantFK == UserId).FirstOrDefault();
+            if (participant == null) 
+                return null;
+
+            List<Answer> anss = ctx.Answers.Where(o => o.ExamParticipant == participant).ToList();
+            List<AnswerViewModel> RetAnswers = new List<AnswerViewModel>();
+            foreach (Answer ans in anss)
+            {
+                RetAnswers.Add(
+                new AnswerViewModel
+                {
+                    AnswerText=ans.AnswerText,
+                    ExamId=ans.ExamId,
+                    QuestionId=ans.QuestionId
+                });
+            }
+            return RetAnswers;
+        }
+
+        public  List<ParticipantViewModel> GetParticipants(string examId)
+        {
+            List<string> ParicipantIds = ctx.UsersParticipateInExams.Where(o => o.ExamFK == examId)
+                .Select(o => o.ParticipantFK).ToList();
+            if (ParicipantIds == null) return null;
+
+            List<ParticipantViewModel> participants = new List<ParticipantViewModel>();
+            foreach (string Pid in ParicipantIds)
+            {
+                //discriminator field in database should be set to "AppUser" for this to work
+                AppUser aUser = ctx.AppUsers.FirstOrDefault(o => o.Id == Pid);
+                string Username = aUser.UserName;
+                participants.Add(new ParticipantViewModel
+                {
+                    Username = Username,
+                });
+            }
+            return participants;
         }
 
         public async Task<bool> SaveChangesAsync()

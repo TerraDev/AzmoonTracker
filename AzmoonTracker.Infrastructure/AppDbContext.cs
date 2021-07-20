@@ -25,7 +25,6 @@ namespace AzmoonTracker.Infrastacture
         {
             base.OnModelCreating(modelBuilder);
 
-
             //Primary keys
             modelBuilder.Entity<UserParticipateInExam>()
                 .HasKey(o => o.ExamParticipantId);
@@ -65,8 +64,8 @@ namespace AzmoonTracker.Infrastacture
                 //.WithOne(o2 => o2.Question)
                 //.HasForeignKey(o1 => new {o1.QuestionId, o1.ExamId});
 
-            //modelBuilder.Entity<AppUser>()
-            //    .HasKey(o => o.Id);
+        //    modelBuilder.Entity<AppUser>()
+        //        .HasKey(o => o.Id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

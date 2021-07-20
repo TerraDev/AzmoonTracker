@@ -44,7 +44,7 @@ namespace AzmoonTracker
             Configuration.GetConnectionString("DefaultConnection"),
             b => b.MigrationsAssembly("AzmoonTracker.Infrastructure")));
 
-            services.AddIdentityCore<AppUser>()
+            services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.Configure<IdentityOptions>(options =>

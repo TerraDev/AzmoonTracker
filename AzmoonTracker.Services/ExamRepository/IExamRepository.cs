@@ -20,6 +20,10 @@ namespace AzmoonTracker.Services.ExamRepository
         //Get Exam
         ExamViewModel GetExam(string examId);
 
+        List<AnswerViewModel> GetAnswer(string examId, string UserId);
+
+        List<ParticipantViewModel> GetParticipants(string examId);
+
         //Get All Exams
         ICollection<ExamViewModel> GetAllExams();
 
