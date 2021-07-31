@@ -1,0 +1,6 @@
+.main_exam_cards{
+    display: grid;
+    gap: 1.5em;
+    grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+    overflow: hidden;
+}

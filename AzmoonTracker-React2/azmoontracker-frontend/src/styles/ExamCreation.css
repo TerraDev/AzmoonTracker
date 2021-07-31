@@ -1,0 +1,22 @@
+.main_exam{
+    padding: 30px 20px 20px 20px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: inset 0px 0px 50px 1px rgb(197, 236, 223);
+}
+
+.add_question
+{
+    background-color: rgb(154, 255, 154);
+    border: 3px solid skyblue;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 0 auto -8px 48%;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}

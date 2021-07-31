@@ -1,0 +1,25 @@
+/* main content styles */
+.container
+{
+  padding: 10px;
+  margin: 50px 5%;
+}
+
+.ad{
+    height: 170px;
+    background-color: #8b8b8b;
+    margin: 40px 36px; /*up right down left*/
+    visibility: hidden;
+}
+
+/* page footer styles */
+footer{
+    color: #bdbdbd;
+    padding: 0 16px 16px 16px;
+}
+
+@media (max-width: 600px){
+    .container{
+      margin: 50px 0;
+    }
+}
