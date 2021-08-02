@@ -1,21 +1,21 @@
 import React,{Component} from 'react'
-import '../../styles/ExamCreation.css'
+import '../../styles/ExamsList.css'
 
 class MainExamsView extends Component {
     render() {
-        //const {
-        //    exam,
-        //    ReturnExam
-        //} = this.props
+        const {
+            exams,
+            ReturnExam
+        } = this.props
 
         return (
-            <div className="main_exam">
+            <div className="main_exam_cards">
                 {
-                //    exams.map(exam => 
-                //        <React.Fragment key={exam.PostNum}>
-                //        {ReturnExam(exam)}
-                //        </React.Fragment> 
-                //    )
+                    exams.map(exam => 
+                        <React.Fragment key={exam.PostNum}>
+                        {ReturnExam(exam)}
+                        </React.Fragment> 
+                    )
                 }
             </div>
         )

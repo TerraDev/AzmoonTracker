@@ -1,0 +1,58 @@
+.main_exam{
+    padding: 30px 20px 20px 20px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: inset 0px 0px 50px 1px rgb(197, 236, 223);
+}
+
+.timer
+{
+    float: right;
+    color: gray;
+    margin-right: 5%;
+}
+
+.tabs {
+    position: relative;   
+    min-height: 200px; /* This part sucks */
+    clear: both;
+    margin: 25px 0;
+}
+
+.tab {
+    float: left;
+}
+
+.tab label {
+    background: #eee; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    margin-left: -1px; 
+    position: relative;
+    left: 1px; 
+}
+
+.tab .for_NAV[type=radio] {
+    display: none;
+}
+
+.content {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background: white;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    border: 1px solid #ccc; 
+}
+
+.for_NAV[type=radio]:checked ~ label {
+    background: white;
+    border-bottom: 1px solid white;
+    z-index: 2;
+}
+
+.for_NAV[type=radio]:checked ~ label ~ .content {
+    z-index: 1;
+}

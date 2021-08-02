@@ -25,7 +25,7 @@ class ExamsController extends Component {
     this.setState({
       exams: response.data,
     })
-    //console.log(response.data);
+    console.log(response.data);
     //console.log(this.state);
   } 
 
