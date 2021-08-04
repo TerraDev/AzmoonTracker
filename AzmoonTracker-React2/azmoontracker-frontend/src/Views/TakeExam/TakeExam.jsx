@@ -2,7 +2,7 @@ import React from 'react'
 import {useForm} from "react-hook-form"
 import '../../styles/TakeExam.css'
 
-export default function TakeExam() {
+export default function TakeExam(props) {
     
     //const {register, handleSubmit, formState: {errors}} = useForm() ;
 
@@ -13,7 +13,7 @@ export default function TakeExam() {
 
     return (
         <div className="main_exam">
-            <h1>exam title: Programming basics</h1>
+            <h1>exam title: {props.match.params.ExamId}</h1>
             <p className="timer">timer is disabled 00:00:00</p>
             <h2>class name:
             <br/>
@@ -23,7 +23,7 @@ export default function TakeExam() {
             <form>
                 <div className="tabs">
                     <div className="tab">
-                        <input type="radio" id="tab-1" name="tab-group-1" className="for_NAV"/>
+                        <input type="radio" id="tab-1" name="tab-group-1" className="for_NAV" defaultChecked/>
                         <label for="tab-1">1</label>
                         
                         <div className="content">
@@ -43,7 +43,7 @@ export default function TakeExam() {
                             2.
                             This is a multi-choice question:
                             <br/>
-                                <input type="radio" id="tab-1" name="q2" value="abc" />1- abc <br/>
+                                <input type="radio" id="tab-1" name="q2" value="abc" defaultChecked/>1- abc <br/>
                                 <input type="radio" id="tab-1" name="q2" value="xyz" />2- xyz <br/>
                                 <input type="radio" id="tab-1" name="q2" value="klm" />3- klm <br/>
                                 <input type="radio" id="tab-1" name="q2" value="eee" />4- eee <br/>

@@ -1,11 +1,13 @@
 import React,{Component} from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ExamCreation from '../Views/ExamCreation/ExamCreation'
-import TakeExam from "../Views/TakeExam/TakeExam";
-import ExamsController from './ExamsController'
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import ExamCreation from "../Views/ExamCreation/ExamCreation"
+import TakeExam from "../Views/TakeExam/TakeExam"
+import ExamsController from "./ExamsController"
 import TopNav from "../Views/TopNav"
+import Login from "../Views/User/Login"
+import Register from "../Views/User/Register"
+import NotFound from "../Views/NotFound";
 import "../styles/Layout.css"
-
 
 class CentralController extends Component {
     render(){
@@ -14,9 +16,14 @@ class CentralController extends Component {
                 <Router>
                     <TopNav />
                     <div className="container">
-                        <Route path="/" exact component={ExamsController} />
-                        <Route path="/CreateExam" exact component={ExamCreation} />
-                        <Route path="/TakeExam" exact component={TakeExam} />
+                    <Switch>
+                        <Route exact path="/" component={ExamsController} />
+                        <Route exact path="/CreateExam" component={ExamCreation} />
+                        <Route exact path="/TakeExam/:ExamId" component={TakeExam} />
+                        <Route exact path="/Login" component={Login} />
+                        <Route exact path="/Register" component={Register} />
+                        <Route component={NotFound} />
+                    </Switch>
                     </div>
                 </Router>
                 <div className="ad"></div>

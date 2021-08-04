@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import EXAM from '../../Assets/EXAM.jpg'
 import '../../styles/OneExam.css'
+import {Link} from 'react-router-dom'
 
 class OneExamView extends Component {
     render() {
@@ -13,14 +14,16 @@ class OneExamView extends Component {
                     {
                         exam.PostNum
                     }
-                    <br></br>
+                    <br/>
                     {
                         exam.Text
                     }
-                    <br></br>
+                    <br/>
                     {
                         exam.Likes
                     }
+                    <br/>
+                    <Link to={"/TakeExam/"+exam.Text}>The link</Link>
                 </div>
         )
     }

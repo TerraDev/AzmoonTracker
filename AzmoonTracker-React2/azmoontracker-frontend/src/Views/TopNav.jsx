@@ -8,7 +8,7 @@ class TopNav extends Component {
         <div className="topnav">
             <NavLink to="/" exact className="left" activeClassName="active">Home</NavLink>
             <NavLink to="/CreateExam" exact className="left" activeClassName="active">New Exam</NavLink>
-            <a href="#login" className="left">login</a>
+            <NavLink to="/Login" exact className="left" activeClassName="active">Login</NavLink>
             <a href="#contact" className="right">Contact us</a>
             <a href="#about" className="right">About</a>
         </div>
