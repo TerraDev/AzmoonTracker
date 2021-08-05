@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import GetExams from '../adapters/MainPage/GetExams';
+import GetExams from '../adapters/Exam/GetExams';
 import MainExamsView from '../Views/Exams/MainExamsView'
 import OneExamController from './OneExamController'
 
@@ -27,7 +27,7 @@ class ExamsController extends Component {
     })
     console.log(response.data);
     //console.log(this.state);
-  } 
+  }
 
   ReturnOneExam = (exam) =>
   {
