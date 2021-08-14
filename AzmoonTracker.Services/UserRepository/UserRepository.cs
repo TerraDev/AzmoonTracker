@@ -18,7 +18,8 @@ namespace AzmoonTracker.Services.UserRepository
         private UserManager<AppUser> userManager;
         private JWTConfig jwtsettings;
 
-        public UserRepository(UserManager<AppUser> _userManager, IOptions<JWTConfig> _jwtsettings /*, SignInManager<ApplicationUser> _signInManager*/)
+        public UserRepository(UserManager<AppUser> _userManager, 
+            IOptions<JWTConfig> _jwtsettings /*, SignInManager<ApplicationUser> _signInManager*/)
         {
             userManager = _userManager;
             //signInManager = _signInManager;
@@ -75,41 +76,48 @@ namespace AzmoonTracker.Services.UserRepository
 
         public async Task<AuthResult> LoginAsync(LoginViewModel LogVM)
         {
+            var existingUser = await userManager.FindByEmailAsync(LogVM.Email);
+
+            if (existingUser == null)
             {
-                var existingUser = await userManager.FindByEmailAsync(LogVM.Email);
-
-                if (existingUser == null)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() {
-                                "Invalid Email. User does not exist"
-                    },
-                        IsSuccessful = false
-                    };
-                }
-
-                var isCorrect = await userManager.CheckPasswordAsync(existingUser, LogVM.Password);
-
-                if (!isCorrect)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() {
-                                "Password is incorrect"
-                            },
-                        IsSuccessful = false
-                    };
-                }
-
-                var jwtToken = GenerateJWTToken(existingUser);
-
                 return new AuthResult()
                 {
-                    IsSuccessful = true,
-                    Token = jwtToken
+                    Errors = new List<string>() {
+                        "Invalid Email. User does not exist"
+                    },
+                    IsSuccessful = false
                 };
             }
+
+            var isCorrect = await userManager.CheckPasswordAsync(existingUser, LogVM.Password);
+
+            if (!isCorrect)
+            {
+                return new AuthResult()
+                {
+                    Errors = new List<string>() {
+                            "Password is incorrect"
+                    },
+                    IsSuccessful = false
+                };
+            }
+
+            var jwtToken = GenerateJWTToken(existingUser);
+
+            return new AuthResult()
+            {
+                IsSuccessful = true,
+                Token = jwtToken
+            };
+        }
+
+        public async Task<UserPanelViewModel> GetUserByIdAsync(string userId)
+        {
+            AppUser user = await userManager.FindByIdAsync(userId);
+            return new UserPanelViewModel {
+                UserName = user.UserName,
+                Email = user.Email
+            };
         }
 
         public void Logout()
@@ -127,13 +135,15 @@ namespace AzmoonTracker.Services.UserRepository
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("UserId", user.Id),
+                    //new Claim("UserId", user.Id),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    //new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                    new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 //Expires = DateTime.UtcNow.AddHours(10),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), 
+                SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);

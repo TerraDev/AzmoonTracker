@@ -1,7 +1,8 @@
 import React from 'react'
 import '../../styles/Forms.css'
 import {useForm} from "react-hook-form"
-import RegisterUser from '../../adapters/User/PostRegister'
+import Login from '../../adapters/User/Login'
+import storeToken from '../../adapters/User/handleToken'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -23,11 +24,12 @@ const validationSchema = Yup.object().shape({
     const onSubmit = async (data) =>
     {
         console.log(data);
-        const response = await RegisterUser();
-        //this.setState({
-        //  exams: response.data,
-        //})
+        const response = await Login(data);
+        //if (response.status == 400)
+        console.log(response)
+        console.log(response.status)
         console.log(response.data);
+        storeToken(response.data);
     }
 
     return (

@@ -1,10 +1,12 @@
 ﻿using AzmoonTracker.Services.UserRepository;
 using AzmoonTracker.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AzmoonTracker.Controllers
@@ -42,6 +44,13 @@ namespace AzmoonTracker.Controllers
             });
         }
 
+        [HttpGet("TestAuth")]
+        [Authorize]
+        public IActionResult Test()
+        {
+            return Ok("this works!");
+        }
+
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUser(LoginViewModel LVM)
         {
@@ -63,18 +72,24 @@ namespace AzmoonTracker.Controllers
             });
         }
 
-        //[HttpGet("Profile")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        ////GET : /api/Auth/Profile
-        //public async Task<Object> GetUserProfile() //probably should input the token also
-        //{
-        //    string userId = User.Claims.First(c => c.Type == "UserID").Value;
-        //    ApplicationUser user = await userManager.FindByIdAsync(userId);
-        //    return new
-        //    {
-        //        user.UserName,
-        //        user.Email
-        //    };
-        //}
+        [HttpGet("Profile")]
+        [Authorize]
+        public IActionResult GetUserProfile() //probably should input the token also
+        {
+            //string userId = User.Claims.First(c => c.Type == "UserID").Value;//outdated??
+            //string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);//gives user Id
+            //UserPanelViewModel Panel= await userRepository.GetUserByIdAsync(userId);
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            // will give the user's Email
+
+            var userName = User.FindFirstValue(ClaimTypes.GivenName);
+            // will give the user's username
+
+            return Ok(new UserPanelViewModel { 
+                UserName=userName,
+                Email=userEmail
+            });
+        }
     }
 }

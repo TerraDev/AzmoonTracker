@@ -27,7 +27,6 @@ export default function Register() {
 
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validationSchema)}) ;
 
-
     const onSubmit = async (data) =>
     {
         console.log(data);

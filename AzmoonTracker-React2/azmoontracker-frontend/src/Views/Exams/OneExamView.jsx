@@ -3,30 +3,46 @@ import EXAM from '../../Assets/EXAM.jpg'
 import '../../styles/OneExam.css'
 import {Link} from 'react-router-dom'
 
-class OneExamView extends Component {
+export default class OneExamView extends Component {
+
+    constructor(prop)
+    {
+        super(prop)
+        this.state={exam: prop.exam}
+    }
+
     render() {
-        const 
-            {exam}
-         = this.props
+        const {exam}= this.state
         return (
                 <div className="exam_card">
                     <img src={EXAM} alt="Exam"/>
+                    <label>Search Id: </label>
                     {
-                        exam.PostNum
+                        exam.examSearchId
                     }
                     <br/>
+                    <label>Exam name: </label>
                     {
-                        exam.Text
+                        exam.examName
                     }
                     <br/>
+                    <label>Class name: </label>
                     {
-                        exam.Likes
+                        exam.className
                     }
                     <br/>
-                    <Link to={"/TakeExam/"+exam.Text}>The link</Link>
+                    <label>Start time: </label>
+                    {
+                        exam.startTime
+                    }
+                    <br/>
+                    <label>End time: </label>
+                    {
+                        exam.endTime
+                    }
+                    <br/>
+                    <Link to={"/TakeExam/"+exam.examId}>The link</Link>
                 </div>
         )
     }
 }
-
-export default OneExamView

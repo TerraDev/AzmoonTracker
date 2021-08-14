@@ -71,7 +71,7 @@ namespace AzmoonTracker.Controllers
             }
             else
             {
-                if (!examRepository.UpdateExam(examView, ExamId))
+                if(!examRepository.UpdateExam(examView, ExamId))
                 {
                     return BadRequest();
                 }

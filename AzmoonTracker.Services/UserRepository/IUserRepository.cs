@@ -12,6 +12,8 @@ namespace AzmoonTracker.Services.UserRepository
 
         Task<AuthResult> RegisterAsync(RegisterViewModel RVM);
 
+        Task<UserPanelViewModel> GetUserByIdAsync(string userId);
+
         void Logout();
     }
 }

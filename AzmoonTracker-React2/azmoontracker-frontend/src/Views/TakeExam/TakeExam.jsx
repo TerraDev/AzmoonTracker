@@ -1,31 +1,26 @@
-import React, {useState, useEffect} from 'react'
-//import {useForm} from "react-hook-form"
+import React, {useState} from 'react'
+import {useForm} from "react-hook-form"
 import '../../styles/TakeExam.css'
-import GetExam from '../../adapters/Exam/GetExam'
 
-export default function TakeExam(props) {
+export default function TakeExam({exam, ans}) {
     
-    const [exam,setExam] = useState(null);
+    console.log({exam, ans})
+    //const [exam,setExam] = useState(props.exam);
     const [loading,setLoading] = useState(true);
-    //const {register, handleSubmit, formState: {errors}} = useForm() ;
+    //const [answers,setAnswers] = useState(null);
+    
+
+    const {register, handleSubmit, /*formState: {errors} ,*/ setValue, getValues} = useForm({
+        defaultValues: {ans:ans}
+    });
 
     //const response = {}
-    useEffect(() => { 
-        async function GetExamData()
-        {
-            const response = await GetExam(/*props.match.params.ExamId*/)
-            //const data = await response.json()
-            console.log(response.data)
-            setExam( response.data )
-            setLoading(false)
-        }
-        GetExamData()
-    },[])
 
-    //const onSubmit = (data) =>
-    //{
-    //    console.log(data);
-    //}
+    const onSubmit = (data) =>
+    {
+        console.log(data);
+        
+    }
 
     return (
         <div className="main_exam">
@@ -36,7 +31,7 @@ export default function TakeExam(props) {
             {exam?.className}
             </h2>
             <br/>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="tabs">
                     {/*<div className="tab">
                         <input type="radio" id="tab-1" name="tab-group-1" className="for_NAV"/>
@@ -77,7 +72,11 @@ export default function TakeExam(props) {
                                 <div className="content">
                                     {question.questionDescription}
                                     <br/>
-                                    <input type="text" style={{width: "95%"}}/>
+                                    <input /*name={`ans[${question.questionNum-1}].answerText`}*/ type="text" style={{width: "95%"}} 
+                                    {...register(`ans[${question.questionNum-1}].answerText`)}/>
+
+                                    <input type="text" {...register(`ans[${question.questionNum-1}].questionId`,
+                                    {valueAsNumber:true})} readOnly hidden/>
                                 </div> 
                             </div>
                         ):null
