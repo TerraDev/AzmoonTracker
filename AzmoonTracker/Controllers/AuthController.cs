@@ -44,11 +44,11 @@ namespace AzmoonTracker.Controllers
             });
         }
 
-        [HttpGet("TestAuth")]
         [Authorize]
+        [HttpGet("TestAuth")]
         public IActionResult Test()
         {
-            return Ok("this works!");
+            return Ok();
         }
 
         [HttpPost("Login")]

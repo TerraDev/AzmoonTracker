@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import {useForm} from "react-hook-form"
 import '../../styles/TakeExam.css'
+import Timer from './Timer';
 
 export default function TakeExam({exam, ans}) {
     
     console.log({exam, ans})
     //const [exam,setExam] = useState(props.exam);
-    const [loading,setLoading] = useState(true);
+    //const [loading,setLoading] = useState(true);
     //const [answers,setAnswers] = useState(null);
-    
 
     const {register, handleSubmit, /*formState: {errors} ,*/ setValue, getValues} = useForm({
         defaultValues: {ans:ans}
@@ -19,13 +19,12 @@ export default function TakeExam({exam, ans}) {
     const onSubmit = (data) =>
     {
         console.log(data);
-        
     }
 
     return (
         <div className="main_exam">
             <h1>exam title: {exam?.examName}</h1>
-            <p className="timer">timer is disabled 00:00:00</p>
+            <Timer examPeriod={200} initTime={new Date(2021, 8-1, 17, 18,55,0,0)} /*initTime={exam.StartTime}*//>
             <h2>class name:
             <br/>
             {exam?.className}

@@ -26,7 +26,6 @@ export default class MainExamsView extends Component {
         }
       }
     
-      //async?
       async componentDidMount()
       {
         const response = await GetExams();

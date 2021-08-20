@@ -84,7 +84,6 @@ namespace AzmoonTracker.Services.ExamRepository
                 IsPublic = exam.IsPublic,
                 Questions = questionViews
             };
-
             return examView;
         }
 
@@ -142,12 +141,12 @@ namespace AzmoonTracker.Services.ExamRepository
             return true;//check
         }
 
-        public bool UpdateExam(ExamViewModel examView, string ExamId)
+        public bool UpdateExam(ExamViewModel examView, string ExamId, string creatorId)
         {
 
             this.DeleteExam(ExamId);
             ctx.SaveChanges();
-            this.CreateExam(examView,"q");
+            this.CreateExam(examView,creatorId);
             //the reason I wrote it like this is that
             //some rows from questions & choices could be
             //added or deleted, so the commented lines won't work
@@ -193,10 +192,10 @@ namespace AzmoonTracker.Services.ExamRepository
             {
                 //discriminator field in database should be set to "AppUser" for this to work
                 AppUser aUser = ctx.AppUsers.FirstOrDefault(o => o.Id == Pid);
-                string Username = aUser.UserName;
                 participants.Add(new ParticipantViewModel
                 {
-                    Username = Username,
+                    UserId = aUser.Id,
+                    Username = aUser.UserName,
                 });
             }
             return participants;

@@ -14,6 +14,7 @@ namespace AzmoonTracker.Services.TakeExamRepository
 
         public bool FillAnswer(AnswerViewModel answerViewModel, string UserId);
 
+        public UserExamStatusViewModel GetUserExamStatus(string ExamId, string UserId);
         //public bool ExamHasStarted(string ExamId);
 
         //public bool ExamHasFinished(string ExamId);

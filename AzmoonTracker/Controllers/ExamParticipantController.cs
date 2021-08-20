@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AzmoonTracker.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AzmoonTracker.Controllers
 {
@@ -20,12 +22,13 @@ namespace AzmoonTracker.Controllers
             takeExamRepository = _takeExamRepository;
         }
 
+        [Authorize]
         [HttpPost("EnrollExam/{ExamId}")]
         public async Task<IActionResult> EnrollExam(string ExamId)
         {
 
             //TODO: check the clock
-            if (!takeExamRepository.EnrollExam(ExamId, "q"))
+            if (!takeExamRepository.EnrollExam(ExamId, User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 return BadRequest();
             if (! await takeExamRepository.SaveChangesAsync())
                 return BadRequest();
@@ -33,12 +36,15 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("UnenrollExam/{ExamId}")]
         public async Task<IActionResult> EnrollExamAsync(string ExamId)
         {
             //TODO: check the clock
 
-            if (!takeExamRepository.UnenrollExam(ExamId, "q"))
+            if (!takeExamRepository.UnenrollExam(ExamId,
+                User.FindFirstValue(ClaimTypes.NameIdentifier)))
+
                 return BadRequest();
             if (!await takeExamRepository.SaveChangesAsync())
                 return BadRequest();
@@ -46,6 +52,16 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpGet("GetUserExamStatus/{ExamId}")]
+        public IActionResult GetUserExamStatus(string ExamId)
+        {
+            var status = takeExamRepository.GetUserExamStatus(ExamId,
+                User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return Ok(status);
+        }
+
+        [Authorize]
         [HttpPut("WriteAnswer")]
         public async Task<IActionResult> SubmitAnswer(AnswerViewModel answer)
         {
@@ -54,7 +70,7 @@ namespace AzmoonTracker.Controllers
 
             //TODO: check the clock
 
-            if (!takeExamRepository.FillAnswer(answer, "q"))
+            if (!takeExamRepository.FillAnswer(answer, User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 return BadRequest();
 
             if (!await takeExamRepository.SaveChangesAsync())

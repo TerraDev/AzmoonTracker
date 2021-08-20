@@ -14,7 +14,6 @@ namespace AzmoonTracker.Services.UserRepository
 {
     public class UserRepository : IUserRepository
     {
-
         private UserManager<AppUser> userManager;
         private JWTConfig jwtsettings;
 
@@ -63,6 +62,8 @@ namespace AzmoonTracker.Services.UserRepository
                 {
                     authResult.Token = GenerateJWTToken(applicationUser);
                     authResult.IsSuccessful = true;
+                    authResult.Username = applicationUser.UserName;
+                    authResult.UserId = applicationUser.Id;
                 }
                 else
                 {
@@ -70,7 +71,6 @@ namespace AzmoonTracker.Services.UserRepository
                     authResult.Errors.Add("Unable to create user");
                 }
             }
-
             return authResult;
         }
 
@@ -106,6 +106,8 @@ namespace AzmoonTracker.Services.UserRepository
 
             return new AuthResult()
             {
+                UserId = existingUser.Id,
+                Username = existingUser.UserName,
                 IsSuccessful = true,
                 Token = jwtToken
             };
@@ -137,7 +139,7 @@ namespace AzmoonTracker.Services.UserRepository
                 {
                     //new Claim("UserId", user.Id),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    //new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id),
                     new Claim(JwtRegisteredClaimNames.GivenName, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),

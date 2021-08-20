@@ -1,8 +1,8 @@
 import React from 'react'
 import '../../styles/Forms.css'
 import {useForm} from "react-hook-form"
-import Login from '../../adapters/User/Login'
-import storeToken from '../../adapters/User/handleToken'
+import LoginUser from '../../adapters/User/Login'
+import {storeToken} from '../../adapters/User/handleToken'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
         .email('Email is invalid'),
     Password: Yup.string()
         .required('Password is required')
-        .min(8, 'Password must be at least 8 characters')
+        .min(4, 'Password must be at least 4 characters')
         .max(40, 'Password must not exceed 40 characters')
     })
 
@@ -24,12 +24,13 @@ const validationSchema = Yup.object().shape({
     const onSubmit = async (data) =>
     {
         console.log(data);
-        const response = await Login(data);
+        const response = await LoginUser(data);
         //if (response.status == 400)
         console.log(response)
         console.log(response.status)
         console.log(response.data);
         storeToken(response.data);
+        window.location.reload()
     }
 
     return (

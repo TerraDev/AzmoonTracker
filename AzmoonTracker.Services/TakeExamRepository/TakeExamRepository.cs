@@ -89,6 +89,40 @@ namespace AzmoonTracker.Services.TakeExamRepository
             return true;
         }
 
+        public UserExamStatusViewModel GetUserExamStatus(string ExamId, string UserId)
+        {
+            var userParticipate = ctx.UsersParticipateInExams.Where(o =>
+            o.ExamFK == ExamId &&
+            o.ParticipantFK == UserId
+            ).FirstOrDefault();
+
+            if(userParticipate != null)
+            {
+                return new UserExamStatusViewModel
+                {
+                    userStatus = UserExamStatus.Enrolled
+                };
+            }
+            else
+            {
+                Exam ex = ctx.Exams.Where(o =>
+                o.ExamId == ExamId &&
+                o.CreatorId == UserId
+                ).FirstOrDefault();
+
+                if(ex!=null)
+                    return new UserExamStatusViewModel
+                    {
+                        userStatus = UserExamStatus.Creator
+                    };
+                else
+                    return new UserExamStatusViewModel
+                    {
+                        userStatus = UserExamStatus.Unenrolled
+                    };
+            }
+        }
+
         //public bool ExamHasStarted()
         //{
         //    return true;

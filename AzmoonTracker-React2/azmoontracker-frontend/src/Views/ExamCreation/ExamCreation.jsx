@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import '../../styles/ExamCreation.css'
 import QuestionCreation from './QuestionCreation'
-import {useForm} from "react-hook-form"
+import {useForm, useFieldArray, useWatch} from "react-hook-form"
+import SubmitExam from "../../adapters/Exam/SubmitExam"
 
-export default function ExamCreation() {
-    
-    const {register, handleSubmit, formState: {errors}} = useForm() ;
-    
+let qNum = 1;
+export default function ExamCreation(props) {
+    console.log("Now in creation!" + " exam:")
+    console.log(props)
     const [ExamDesc,setExamDesc] = useState({
         examId: "",
         examSearchId: "",
@@ -20,73 +21,76 @@ export default function ExamCreation() {
         endTime: "",
     })
 
-    const handleExamDescChanges = (e) => setExamDesc({
-        ...ExamDesc,
-        [e.target.name]: [e.target.value]
+    //using react-hook-forms
+    const {register, control, handleSubmit, formState: {errors}, watch} = useForm({
+        defaultValues: {
+            examId: props.Exam?.ExamId || "",
+            examSearchId: props.Exam?.ExamSearchId || "",
+            examName: props.Exam?.ExamName || "",
+            className: props.Exam?.ClassName || "",
+            isPublic: props.Exam?.IsPublic || true,
+            isFinished: props.Exam?.IsFinished || false,
+            //QuestionNum: props.Exam?.ExamName || 1,
+            StartTime: props.Exam?.StartTime ,
+            EndTime: props.Exam?.EndTime ,
+            questions: [(props.Exam?.questions || { QuestionTypeId: 1, QuestionNum:1, QuestionDescription: "" })]
+        }
     })
 
-    const blankQuestion = {
-        questionTypeId: 1,
-        questionNum: 1,
-        questionDescription: ""
-    }
-
-    const [Questions, setQuestions] = useState([
-            blankQuestion
-    ]);
-
-    //one possible solution is to send the object itself along with e
-    const handleQuestionChanges = (Qindex,e) => {
-        const toBeQuestions = [...Questions];
-        //console.log(e.target)
-        //console.log(Qindex)
-        //console.log(e.target.name)
-        if(e.target.name=="questionTypeId")
-            toBeQuestions[Qindex][e.target.name] = +e.target.value
-        else
-            toBeQuestions[Qindex][e.target.name] = e.target.value
-        setQuestions(toBeQuestions)
-        console.log(Questions)
-    }
-
-    const addQuestion= () => {
-        const newBlankQuestion = {...blankQuestion, questionNum:Questions.length+1}
-        setQuestions([...Questions, newBlankQuestion])
-    }
+    const {fields, append, remove } = useFieldArray({
+        control,
+        name: 'questions'
+    })
 
     const onSubmit = (data) =>
     {
-        console.log(Questions);
+        data.QuestionNum = data.questions.length;
+        data.questions.map((question)=>{
+            question.choices = [];
+        })
         console.log(data);
+        console.log(props.Exam?.ExamId)
+        props.Exam?.ExamId ? void(0) : SubmitExam(data)
     }
-
+    
     return (
         <div className="main_exam">
             <form onSubmit={handleSubmit(onSubmit)}>
+                <input {...register("examId")} readOnly hidden/>
+                <input {...register("isFinished")} readOnly hidden/>
+
                 <div>
                     <label>exam title:</label>
-                    <input type="text" placeholder="enter exam title" name="examTitle"
-                    {...register("examTitle")} value={ExamDesc.examName} onChange={handleExamDescChanges}/>
+                    <input type="text" placeholder="enter exam title" 
+                    {...register("examName")} />
                 </div>
-                {errors.examTitle && <p>{errors.examTitle.message}</p>}
+                {errors.examName && <p>{errors.examName.message}</p>}
                 <br/>
                 <div>
-                    <label>date:</label>
-                    <input type="date" name="examDate" {...register("examDate")}
-                    value={ExamDesc.startDate} onChange={handleExamDescChanges}/>
+                    <label>exam search id:</label>
+                    <input type="text" placeholder="enter exam title"
+                    {...register("examSearchId")} />
                 </div>
                 <br/>
                 <div>
-                    <label>time:</label>
-                    <input type="time" name="examTime" {...register("examTime")}
-                    value={ExamDesc.startTime} onChange={handleExamDescChanges}/>
+                    <label>start date and time:</label>
+                    <input type="datetime-local" {...register("StartTime")}/>
+                </div>
+                <br/>
+                <div>
+                    <label>end time:</label>
+                    <input type="datetime-local"  {...register("EndTime")}/>
+                </div>
+                <br/>
+                <div>
+                    <input type="checkbox"  {...register("isPublic")}/>
+                    <span>exam is public</span>
                 </div>
                 <br/>
                 <div>
                     <label>class name:</label>
-                    <input type="text" {...register("examClass")}
-                    placeholder="eg: school year 9 physics,UCLA mechanical engineering,..." 
-                    value={ExamDesc.className} onChange={handleExamDescChanges}/>
+                    <input type="text" {...register("className")}
+                    placeholder="eg: school year 9 physics,UCLA computer science,..." />
                 </div>
                 <br/>
                 <div>
@@ -96,31 +100,32 @@ export default function ExamCreation() {
                 <br/>
                 <button>submit</button>
 
-                <div className="add_question" onClick={addQuestion}> + </div>
+                <div className="add_question" onClick={() => {append({});qNum++;}}> + </div>
                 <div className="ReverseList">
                 {
-                Questions.map(Question => 
+                fields.map(({id, QuestionTypeId, QuestionDescription}, index) => 
                     //questionTypeId: 1,
                     //questionNum: 1,
                     //questionDescription: ""
-                    <div className="exam_question" key={Question.questionNum}>
-                        <div className="collapse_question"> {Question.questionNum} </div>
-                        <div className="remove_question">remove</div>
+                    <div className="exam_question" /*key={Question.questionNum}*/  key={id} >
+                        <div className="collapse_question"> {index} </div>
+                        <input type="number" {...register(`questions[${index}].QuestionNum`,{valueAsNumber:true})}
+                        defaultValue={qNum} readOnly hidden />
+                        <div className="remove_question" onClick={()=>remove(index)}>remove</div>
                         <div>
                             <label>question type:</label>
-                            <select name={"questionTypeId"} value={Question.questionTypeId} 
-                            onChange={(e) => handleQuestionChanges(Question.questionNum-1,e)}>
-                                <option value={1}>Descriptive</option>
-                                <option value={2}>Multi-choice</option>
-                                <option value={3}>File upload</option>
+                            <select name={`questions[${index}].QuestionTypeId`} defaultValue={QuestionTypeId}
+                            {...register(`questions[${index}].QuestionTypeId`,{valueAsNumber:true})}>
+                                <option value="1">Descriptive</option>
+                                <option value="2">Multi-choice</option>
+                                <option value="3">File upload</option>
                             </select>
                         </div>
                         <br/>
                         <div>
                             <label>enter question:</label>
-                            <input type="text" placeholder="" name="questionDescription" 
-                            value={Question.questionDescription} 
-                            onChange={(e) => handleQuestionChanges(Question.questionNum-1,e)}/>
+                            <input type="text" placeholder="" name={`questions[${index}].QuestionDescription`}
+                            {...register(`questions[${index}].QuestionDescription`)} defaultValue={QuestionDescription}/>
                         </div>
                     </div>
                 )}

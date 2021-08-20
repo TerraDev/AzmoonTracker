@@ -15,7 +15,7 @@ namespace AzmoonTracker.Services.ExamRepository
         bool DeleteExam(string examId);
 
         //Update Exam
-        bool UpdateExam(ExamViewModel examView, string prevExamId);
+        bool UpdateExam(ExamViewModel examView, string prevExamId, string creatorId);
 
         //Get Exam
         ExamViewModel GetExam(string examId);

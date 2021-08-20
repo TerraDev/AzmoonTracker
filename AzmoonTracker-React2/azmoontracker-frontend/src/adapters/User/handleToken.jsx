@@ -1,10 +1,19 @@
 import axios from "axios";
+import { reRenderNavbar } from "../../Views/TopNav";
 
-export default async function checkforToken(){
-  
+//change name to getTokenfromStorage and return entire token or null
+export function checkforToken(){
+  var jwt = localStorage.getItem('AzmoonTracker_jwt')
+  return jwt ? "Mike" : null
 }
 
-export default async function storeToken(Info){
+export function getToken()
+{
+  var jwt = localStorage.getItem('AzmoonTracker_jwt')
+  return (JSON.parse(jwt) || null)
+}
+
+export function storeToken(Info){
 localStorage.setItem('AzmoonTracker_jwt', JSON.stringify({
     token: Info.token,
     loggedIn: true

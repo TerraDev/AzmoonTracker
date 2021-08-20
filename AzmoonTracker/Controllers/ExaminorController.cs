@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AzmoonTracker.Controllers
@@ -38,6 +39,7 @@ namespace AzmoonTracker.Controllers
                 return Ok(examView);
         }
 
+        [Authorize]
         [HttpPost("Create/")]
         public async Task<IActionResult> CreateExam(ExamViewModel examView)
         {
@@ -47,7 +49,7 @@ namespace AzmoonTracker.Controllers
             }
             else
             {
-                if(!examRepository.CreateExam(examView,"q"))
+                if(!examRepository.CreateExam(examView,User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 {
                     return BadRequest();
                 }
@@ -62,6 +64,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut("Update/{ExamId}")]
         public async Task<IActionResult> UpdateExamAsync(ExamViewModel examView, String ExamId)
         {
@@ -71,7 +74,7 @@ namespace AzmoonTracker.Controllers
             }
             else
             {
-                if(!examRepository.UpdateExam(examView, ExamId))
+                if(!examRepository.UpdateExam(examView, ExamId, User.FindFirstValue(ClaimTypes.NameIdentifier)))
                 {
                     return BadRequest();
                 }
@@ -85,6 +88,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("Delete/{ExamId}")]
         public async Task<IActionResult> DeleteExamAsync(String ExamId)
         {
@@ -101,6 +105,7 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("GetParticipants/{ExamId}")]
         public IActionResult GetExamParticipants(string ExamId)
         {
@@ -110,6 +115,7 @@ namespace AzmoonTracker.Controllers
             else return Ok(participants);
         }
 
+        [Authorize]
         [HttpGet("GetExamAnswer/{ExamId}/{ParticipantId}")]
         public IActionResult GetParticipantAnswers(string ExamId, string ParticipantId)
         {
