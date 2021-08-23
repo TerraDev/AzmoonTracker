@@ -8,7 +8,7 @@ let qNum = 1;
 export default function ExamCreation(props) {
     console.log("Now in creation!" + " exam:")
     console.log(props)
-    const [ExamDesc,setExamDesc] = useState({
+/*  const [ExamDesc,setExamDesc] = useState({
         examId: "",
         examSearchId: "",
         examName: "",
@@ -19,21 +19,21 @@ export default function ExamCreation(props) {
         startDate: "",
         startTime: "",
         endTime: "",
-    })
+    })  */
 
     //using react-hook-forms
     const {register, control, handleSubmit, formState: {errors}, watch} = useForm({
         defaultValues: {
-            examId: props.Exam?.ExamId || "",
-            examSearchId: props.Exam?.ExamSearchId || "",
-            examName: props.Exam?.ExamName || "",
-            className: props.Exam?.ClassName || "",
-            isPublic: props.Exam?.IsPublic || true,
-            isFinished: props.Exam?.IsFinished || false,
-            //QuestionNum: props.Exam?.ExamName || 1,
-            StartTime: props.Exam?.StartTime ,
-            EndTime: props.Exam?.EndTime ,
-            questions: [(props.Exam?.questions || { QuestionTypeId: 1, QuestionNum:1, QuestionDescription: "" })]
+            examId: props.Exam?.examId || "",
+            examSearchId: props.Exam?.examSearchId || "",
+            examName: props.Exam?.examName || "",
+            className: props.Exam?.className || "",
+            isPublic: props.Exam?.isPublic || true,
+            isFinished: props.Exam?.isFinished || false,
+            //questionNum: props.Exam?.ExamName || 1,
+            StartTime: props.Exam?.startTime ,
+            EndTime: props.Exam?.endTime ,
+            questions: props.Exam?.questions || [{ questionTypeId: 1, questionNum:1, questionDescription: "" }]
         }
     })
 
@@ -44,13 +44,15 @@ export default function ExamCreation(props) {
 
     const onSubmit = (data) =>
     {
-        data.QuestionNum = data.questions.length;
-        data.questions.map((question)=>{
+        data.questionNum = data.questions.length;
+        data.questions.map((question,index)=>{
             question.choices = [];
+            question.questionNum = index + 1
         })
+        data.examId = data.examSearchId
         console.log(data);
         console.log(props.Exam?.ExamId)
-        props.Exam?.ExamId ? void(0) : SubmitExam(data)
+        props.Exam?.ExamId ? UpdateExam(data, data.examId) : SubmitExam(data)
     }
     
     return (
@@ -103,19 +105,19 @@ export default function ExamCreation(props) {
                 <div className="add_question" onClick={() => {append({});qNum++;}}> + </div>
                 <div className="ReverseList">
                 {
-                fields.map(({id, QuestionTypeId, QuestionDescription}, index) => 
+                fields.map(({id, questionTypeId, questionDescription}, index) => 
                     //questionTypeId: 1,
                     //questionNum: 1,
                     //questionDescription: ""
-                    <div className="exam_question" /*key={Question.questionNum}*/  key={id} >
+                    <div className="exam_question" /*key={question.questionNum}*/  key={id} >
                         <div className="collapse_question"> {index} </div>
-                        <input type="number" {...register(`questions[${index}].QuestionNum`,{valueAsNumber:true})}
+                        <input type="number" {...register(`questions[${index}].questionNum`,{valueAsNumber:true})}
                         defaultValue={qNum} readOnly hidden />
                         <div className="remove_question" onClick={()=>remove(index)}>remove</div>
                         <div>
                             <label>question type:</label>
-                            <select name={`questions[${index}].QuestionTypeId`} defaultValue={QuestionTypeId}
-                            {...register(`questions[${index}].QuestionTypeId`,{valueAsNumber:true})}>
+                            <select name={`questions[${index}].questionTypeId`} defaultValue={questionTypeId}
+                            {...register(`questions[${index}].questionTypeId`,{valueAsNumber:true})}>
                                 <option value="1">Descriptive</option>
                                 <option value="2">Multi-choice</option>
                                 <option value="3">File upload</option>
@@ -124,8 +126,8 @@ export default function ExamCreation(props) {
                         <br/>
                         <div>
                             <label>enter question:</label>
-                            <input type="text" placeholder="" name={`questions[${index}].QuestionDescription`}
-                            {...register(`questions[${index}].QuestionDescription`)} defaultValue={QuestionDescription}/>
+                            <input type="text" placeholder="" name={`questions[${index}].questionDescription`}
+                            {...register(`questions[${index}].questionDescription`)} defaultValue={questionDescription}/>
                         </div>
                     </div>
                 )}

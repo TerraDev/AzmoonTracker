@@ -5,9 +5,11 @@ import GetExam from "../../adapters/Exam/GetExam"
 import { Link } from "react-router-dom"
 import { GetUserExamStatus, UnenrollfromExam, EnrollinExam} from "../../adapters/TakeExam/ExamEnrollment"
 import DeleteExam from "../../adapters/Exam/DeleteExam"
+import PRE_TakeExam from "../TakeExam/PRE-TakeExam"
 
 export default function PRE_Participate(props)
-{    //check for token in just frontend
+{    
+        //check for token in just frontend
         //if doesn't exist, -> 1: show buttons but make them so they redirect to login page
         //if exists, check whether the user is:
             // 2: The creator (API call from previous) -> depends on the time
@@ -18,12 +20,6 @@ export default function PRE_Participate(props)
     const [htmlButtons,setHtmlButtons] = useState(null)
     const [examDetails,setExamDetails] = useState(null)
     const [toExam,SettoExam] = useState(false)
-
-    const refreshKey = useRef(false);
-
-    function refreshToggle(){
-        refreshKey.current = !refreshKey.current;
-    }
 
     useEffect(()=>{
         async function GetExamDetails(){
@@ -93,11 +89,13 @@ export default function PRE_Participate(props)
                     }
                     else if(current)
                     {
-                        setHtmlButtons(<><button>Proctor exam</button><button>Participants</button></>)
+                        setHtmlButtons(<><button>Proctor exam</button>
+                        <button onClick={()=>{props.history.push("/Answers/"+examId)}}>Participants</button></>)
                     }
                     else //after
                     {
-                        setHtmlButtons(<>exam was finished... <button>view answers</button></>)
+                        setHtmlButtons(<>exam was finished... 
+                        <button onClick={()=>{props.history.push("/Answers/"+examId)}}>view answers</button></>)
                     }
                 }
                 else if (userStatus == "Enrolled")
@@ -105,7 +103,7 @@ export default function PRE_Participate(props)
                     if(before)
                     {
                         setHtmlButtons(<><button disabled={true}>start exam</button>
-                        <button onClick={()=>{UnenrollfromExam(examId);refreshToggle() }}>unenroll</button></>)
+                        <button onClick={()=>{UnenrollfromExam(examId);window.location.reload()}}>unenroll</button></>)
                     }
                     else if(current)
                     {
@@ -113,7 +111,9 @@ export default function PRE_Participate(props)
                     }
                     else
                     {
-                        setHtmlButtons(<>exam was finished... <button>view answers</button></>)
+                        setHtmlButtons(<>exam was finished... 
+                        <button onClick={() => {props.history.push(
+                            `/Answers/${props.match.params.ExamId}/${getToken()?.token?.username}`)}}>view answers</button></>)
                     }
                 }
                 else //not enrolled
@@ -121,7 +121,7 @@ export default function PRE_Participate(props)
                     if(after)
                         setHtmlButtons(<>exam was finished...</>)
                     else
-                        setHtmlButtons(<><button onClick={()=>{EnrollinExam(examId);refreshToggle() }}>enroll</button></>)
+                        setHtmlButtons(<><button onClick={()=>{EnrollinExam(examId);window.location.reload() }}>enroll</button></>)
                 }
             }
         }
@@ -129,9 +129,9 @@ export default function PRE_Participate(props)
         if(examDetails!=null)
             ParticipateAuthTable();
 
-    },[refreshKey.current, examDetails])
+    },[examDetails])
 
     return !toExam ?
     (htmlButtons && examDetails ? <Participate Buttons={htmlButtons} Exam={examDetails} /> : <div>Loading...</div>)
-    :<div>let's get the party started!</div> //change to <PRE_TakeExam  ExamId={props.ExamId}/>
+    :<PRE_TakeExam examId={props.match.params.ExamId}></PRE_TakeExam> 
 }

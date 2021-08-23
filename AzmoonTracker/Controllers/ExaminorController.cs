@@ -119,7 +119,7 @@ namespace AzmoonTracker.Controllers
         [HttpGet("GetExamAnswer/{ExamId}/{ParticipantId}")]
         public IActionResult GetParticipantAnswers(string ExamId, string ParticipantId)
         {
-            List<AnswerViewModel> Answers = examRepository.GetAnswer(ExamId, ParticipantId);
+            AnswersViewModel Answers = examRepository.GetAnswers(ExamId, ParticipantId);
             //check if the user actually takes the exam
 
             if (Answers == null)

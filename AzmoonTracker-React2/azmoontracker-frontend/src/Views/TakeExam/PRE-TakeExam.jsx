@@ -30,7 +30,7 @@ export default function PRE_TakeExam(props)
             }
             await setAnswers(ans)
         }
-        GetExamData(props.match.params.ExamId)
+        GetExamData(props.examId)
     },[])
 
     return exam && answers ? <TakeExam exam={exam} ans={answers}/> : <div>Loading...</div>

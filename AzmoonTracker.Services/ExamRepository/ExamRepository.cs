@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
+using AzmoonTracker.Services.TakeExamRepository;
 
 namespace AzmoonTracker.Services.ExamRepository
 {
@@ -14,11 +15,15 @@ namespace AzmoonTracker.Services.ExamRepository
     {
         private readonly AppDbContext ctx;
         private readonly UserManager<AppUser> userManager;
+        private readonly ITakeExamRepository TexamRepo;
 
-        public ExamRepository(AppDbContext _ctx, UserManager<AppUser> _userManager)
+        public ExamRepository(AppDbContext _ctx, UserManager<AppUser> _userManager
+            , ITakeExamRepository _TexamRepo
+            )
         {
             ctx = _ctx;
             userManager = _userManager;
+            TexamRepo = _TexamRepo;
         }
 
         public ICollection<ExamViewModel> GetAllExams()
@@ -73,7 +78,7 @@ namespace AzmoonTracker.Services.ExamRepository
 
             ExamViewModel examView = new ExamViewModel
             {
-                ExamId = exam.ExamId,
+                ExamId = examId,
                 ExamSearchId = exam.ExamSearchId,
                 ExamName = exam.ExamName,
                 ClassName = exam.ClassName,
@@ -93,37 +98,34 @@ namespace AzmoonTracker.Services.ExamRepository
             foreach (QuestionViewModel Quest in examView.Questions)
             {
                 ICollection<Choice> choices = new List<Choice>();
+                Question nextQuestion = new Question();
                 foreach (ChoiceViewModel ch in Quest.Choices)
                 {
                     choices.Add(
                     new Choice
                     {
-                        ExamId = examView.ExamId,
-                        QuestionId = Quest.QuestionNum,
+                        //ExamId = examView.ExamId,
+                        //QuestionId = Quest.QuestionNum,
                         ChoiceDescription = ch.ChoiceDescription,
                         ChoiceNum = ch.ChoiceNum,
                         IsCorrect = ch.IsCorrect,
+                        Question= nextQuestion
                     });
                 }
 
-                questions.Add(
-                new Question
-                {
-                    //Exam = exam,
-                    ExamId = examView.ExamId,
-                    QuestionDescription = Quest.QuestionDescription,
-                    QuestionNum = Quest.QuestionNum,
-                    TypeId = Quest.QuestionTypeId,
-                    Choices = choices
-                });
+                //nextQuestion.Exam = exam;
+                nextQuestion.QuestionDescription = Quest.QuestionDescription;
+                nextQuestion.QuestionNum = Quest.QuestionNum;
+                nextQuestion.TypeId = Quest.QuestionTypeId;
+                //nextQuestion.Choices = choices;
+                questions.Add(nextQuestion);
             }
 
             Exam exam = new Exam()
             {
                 CreatorId = creatorId,
-                //Creator = GetHashCode from token?
                 ClassName = examView.ClassName,
-                ExamId = examView.ExamId, //is this needed?
+                ExamId = examView.ExamId, 
                 ExamSearchId = examView.ExamSearchId,
                 ExamName = examView.ExamName,
                 StartTime = examView.StartTime,
@@ -143,14 +145,19 @@ namespace AzmoonTracker.Services.ExamRepository
 
         public bool UpdateExam(ExamViewModel examView, string ExamId, string creatorId)
         {
+            List<string> participantIds =
+                ctx.UsersParticipateInExams.Where(o => o.ExamFK == ExamId)
+                .Select(o=>o.ParticipantFK).ToList();
 
             this.DeleteExam(ExamId);
             ctx.SaveChanges();
             this.CreateExam(examView,creatorId);
-            //the reason I wrote it like this is that
-            //some rows from questions & choices could be
-            //added or deleted, so the commented lines won't work
+            ctx.SaveChanges();
 
+            foreach(string participantId in participantIds)
+            {
+                TexamRepo.EnrollExam(examView.ExamId, participantId);
+            }
             return true;
         }
 
@@ -160,7 +167,7 @@ namespace AzmoonTracker.Services.ExamRepository
             return true;
         }
 
-        public List<AnswerViewModel> GetAnswer(string examId, string UserId)
+        public AnswersViewModel GetAnswers(string examId, string UserId)
         {
             UserParticipateInExam participant = ctx.UsersParticipateInExams.Where(o => o.ExamFK == examId && o.ParticipantFK == UserId).FirstOrDefault();
             if (participant == null) 
@@ -174,11 +181,18 @@ namespace AzmoonTracker.Services.ExamRepository
                 new AnswerViewModel
                 {
                     AnswerText=ans.AnswerText,
-                    ExamId=ans.ExamId,
+                    //ExamId=ans.ExamId,
                     QuestionId=ans.QuestionId
                 });
             }
-            return RetAnswers;
+
+            AnswersViewModel AnsVM = new AnswersViewModel();
+
+            AnsVM.UserName = ctx.AppUsers.Where(o => o.Id == UserId).FirstOrDefault().UserName;
+            AnsVM.ExamName = ctx.Exams.Where(o => o.ExamId == examId).FirstOrDefault().ExamName;
+            AnsVM.Answers = RetAnswers;
+
+            return AnsVM;
         }
 
         public  List<ParticipantViewModel> GetParticipants(string examId)

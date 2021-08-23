@@ -9,7 +9,9 @@ namespace AzmoonTracker.ViewModels
     {
         //[Required]
         //[MaxLength(30)]
-        public String ExamId { get; set; }//TODO: comment out
+        //ExamId is in GET requests only. 
+        //in post/put requests we don't use it.
+        public String ExamId { get; set; }
 
         [Required]
         [MaxLength(40)]

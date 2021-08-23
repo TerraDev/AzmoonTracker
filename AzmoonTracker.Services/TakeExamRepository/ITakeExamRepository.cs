@@ -12,7 +12,9 @@ namespace AzmoonTracker.Services.TakeExamRepository
 
         public bool UnenrollExam(string ExamId, string UserId);
 
-        public bool FillAnswer(AnswerViewModel answerViewModel, string UserId);
+        public bool FillAnswer(AnswerViewModel AnswerViewModel, string UserId);
+
+        public bool FillAllAnswers(AnswersViewModel Answers, string ExamId, string UserId);
 
         public UserExamStatusViewModel GetUserExamStatus(string ExamId, string UserId);
         //public bool ExamHasStarted(string ExamId);

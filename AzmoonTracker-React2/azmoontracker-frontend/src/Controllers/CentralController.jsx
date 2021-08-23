@@ -10,6 +10,7 @@ import MainExamsView from "../Views/Exams/MainExamsView";
 //import PRE_TakeExam from "../Views/TakeExam/PRE-TakeExam";
 import PRE_ExamCreation from "../Views/ExamCreation/PRE-ExamCreation";
 import PRE_Participate from "../Views/Participate/PRE-Participate";
+import PRE_Answers from "../Views/Participate/PRE-Answers";
 
 class CentralController extends Component {
     render(){
@@ -22,6 +23,7 @@ class CentralController extends Component {
                         <Route exact path="/" component={MainExamsView} />
                         <Route exact path="/CreateExam/:ExamId?" component={PRE_ExamCreation} />
                         <Route exact path="/TakeExam/:ExamId" component={PRE_Participate} />
+                        <Route exact path="/Answers/:ExamId/:StudentId?" component={PRE_Answers} />
                         <Route exact path="/Login" component={Login} />
                         <Route exact path="/Register" component={Register} />
                         <Route component={NotFound} />

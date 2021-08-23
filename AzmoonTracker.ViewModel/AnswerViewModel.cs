@@ -7,8 +7,8 @@ namespace AzmoonTracker.ViewModels
 {
     public class AnswerViewModel
     {
-        [MaxLength(30)]
-        public string ExamId { get; set; }
+        //[MaxLength(30)]
+        //public string ExamId { get; set; }
 
         public int QuestionId { get; set; }
 

@@ -74,17 +74,40 @@ namespace AzmoonTracker.Services.TakeExamRepository
 
         public bool FillAnswer(AnswerViewModel answerViewModel, string UserId)
         {
-            UserParticipateInExam part = ctx.UsersParticipateInExams.Where(o => o.ExamFK == answerViewModel.ExamId
-            && o.ParticipantFK == UserId).FirstOrDefault();
+            UserParticipateInExam part = ctx.UsersParticipateInExams.Where(o => //o.ExamFK == answerViewModel.ExamId &&
+            o.ParticipantFK == UserId).FirstOrDefault();
 
             if (part == null)
                 return false;
 
             ctx.Answers.Where(o =>
-                o.ExamId == answerViewModel.ExamId
-                && o.QuestionId == answerViewModel.QuestionId
+                //o.ExamId == answerViewModel.ExamId &&
+                o.QuestionId == answerViewModel.QuestionId
                 && o.ExamParticipant == part)
                 .FirstOrDefault().AnswerText = answerViewModel.AnswerText;
+
+            return true;
+        }
+
+        public bool FillAllAnswers(AnswersViewModel answers,string ExamId , string UserId)
+        {
+            UserParticipateInExam part = ctx.UsersParticipateInExams.Where(o => 
+                o.ExamFK == ExamId &&
+                o.ParticipantFK == UserId).FirstOrDefault();
+
+            if (part == null)
+                return false;
+
+            List<Answer> anss = ctx.Answers.Where(o =>
+                o.ExamId == ExamId &&
+                o.ExamParticipant == part)
+                .ToList();
+
+            foreach (var ans in answers.Answers)
+            {
+                anss.Where(o => o.QuestionId == ans.QuestionId)
+                    .FirstOrDefault().AnswerText = ans.AnswerText;
+            }
 
             return true;
         }

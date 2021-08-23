@@ -38,7 +38,7 @@ namespace AzmoonTracker.Controllers
 
         [Authorize]
         [HttpDelete("UnenrollExam/{ExamId}")]
-        public async Task<IActionResult> EnrollExamAsync(string ExamId)
+        public async Task<IActionResult> UnenrollExam(string ExamId)
         {
             //TODO: check the clock
 
@@ -71,6 +71,26 @@ namespace AzmoonTracker.Controllers
             //TODO: check the clock
 
             if (!takeExamRepository.FillAnswer(answer, User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                return BadRequest();
+
+            if (!await takeExamRepository.SaveChangesAsync())
+                return BadRequest();
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPut("WriteAllAnswers/{ExamId}")]
+        public async Task<IActionResult> SubmitAllAnswers(AnswersViewModel answers, string ExamId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            //TODO: check the clock
+
+            if (!takeExamRepository.FillAllAnswers(answers, ExamId,
+                User.FindFirstValue(ClaimTypes.NameIdentifier)))
+
                 return BadRequest();
 
             if (!await takeExamRepository.SaveChangesAsync())
