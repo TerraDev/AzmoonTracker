@@ -1,22 +1,37 @@
-import React,{useState} from 'react'
+import React,{useRef, useState} from 'react'
 import '../styles/TopNav.css'
 import {NavLink} from 'react-router-dom'
-import {checkforToken} from '../adapters/User/handleToken'
+import {getToken , RemoveToken} from '../adapters/User/handleToken'
 
 
 export default function TopNav () {
-    console.log("ikea")
-    const [jwt,setJwt] = useState(checkforToken())
+    console.log("rendering navbar")
+    const exp = useRef(null)
+    function unexpand(){
+        exp.current.checked=false
+    }
+    const [jwt,setJwt] = useState(getToken())
     return (
-    <div className="topnav">
-        <NavLink to="/" exact className="left" activeClassName="active">Home</NavLink>
-        <NavLink to="/CreateExam" exact className="left" activeClassName="active">New Exam</NavLink>
-        {jwt ? <a href="#" className="left">{jwt}</a>
-        :<NavLink to="/Login" exact className="left" activeClassName="active">Login</NavLink>
-        }
-        <a href="#contact" className="right">Contact us</a>
-        <a href="#about" className="right">About</a>
-    </div>
+    <nav className="topnav">
+        <input type="checkbox" id="res-menu" ref={exp}/>
+        <label htmlFor="res-menu">
+            <a className="expandable"> ... </a>
+        </label>
+            <NavLink onClick={unexpand} to="/" exact className="left" activeClassName="active">Home</NavLink>
+            <NavLink onClick={unexpand} to="/CreateExam" exact className="left" activeClassName="active">New Exam</NavLink>
+            {jwt ? 
+            <> 
+                <a href="#" className="left">{jwt.username}</a> 
+                <a href="#" className="left" onClick={()=>{unexpand();RemoveToken();setJwt(null)}}>Logout</a> 
+            </>
+            :
+            <>
+                <NavLink onClick={unexpand} to="/Login" exact className="left" activeClassName="active">Login</NavLink>
+                <NavLink onClick={unexpand} to="/Register" exact className="left" activeClassName="active">Register</NavLink>
+            </>
+            }
+            <a onClick={unexpand} href="#contact" className="right">Contact us</a>
+            <a onClick={unexpand} href="#about" className="right">About</a>
+    </nav>
     )
 }
-

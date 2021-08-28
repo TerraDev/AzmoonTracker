@@ -14,7 +14,7 @@ export default class OneExamView extends Component {
     render() {
         const {exam}= this.state
         return (
-                <div className="exam_card">
+                <Link to={"/TakeExam/"+exam.examId} className="exam_card">
                     <img src={EXAM} alt="Exam"/>
                     <label>Search Id: </label>
                     {
@@ -41,8 +41,7 @@ export default class OneExamView extends Component {
                         exam.endTime
                     }
                     <br/>
-                    <Link to={"/TakeExam/"+exam.examId}>The link</Link>
-                </div>
+                </Link>
         )
     }
 }

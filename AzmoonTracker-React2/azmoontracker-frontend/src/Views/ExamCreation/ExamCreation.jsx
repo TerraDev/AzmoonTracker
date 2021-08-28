@@ -3,11 +3,12 @@ import '../../styles/ExamCreation.css'
 import QuestionCreation from './QuestionCreation'
 import {useForm, useFieldArray, useWatch} from "react-hook-form"
 import SubmitExam from "../../adapters/Exam/SubmitExam"
+import UpdateExam from "../../adapters/Exam/UpdateExam"
 
 let qNum = 1;
 export default function ExamCreation(props) {
     console.log("Now in creation!" + " exam:")
-    console.log(props)
+    console.log(props.history)
 /*  const [ExamDesc,setExamDesc] = useState({
         examId: "",
         examSearchId: "",
@@ -42,7 +43,7 @@ export default function ExamCreation(props) {
         name: 'questions'
     })
 
-    const onSubmit = (data) =>
+    const onSubmit = async (data) =>
     {
         data.questionNum = data.questions.length;
         data.questions.map((question,index)=>{
@@ -51,8 +52,9 @@ export default function ExamCreation(props) {
         })
         data.examId = data.examSearchId
         console.log(data);
-        console.log(props.Exam?.ExamId)
-        props.Exam?.ExamId ? UpdateExam(data, data.examId) : SubmitExam(data)
+        console.log(props.Exam?.examId)
+        props.Exam?.examId ? (await UpdateExam(data, data.examId)) : await SubmitExam(data)
+        props.history.push("/");
     }
     
     return (
@@ -126,7 +128,7 @@ export default function ExamCreation(props) {
                         <br/>
                         <div>
                             <label>enter question:</label>
-                            <input type="text" placeholder="" name={`questions[${index}].questionDescription`}
+                            <textarea placeholder="" name={`questions[${index}].questionDescription`}
                             {...register(`questions[${index}].questionDescription`)} defaultValue={questionDescription}/>
                         </div>
                     </div>

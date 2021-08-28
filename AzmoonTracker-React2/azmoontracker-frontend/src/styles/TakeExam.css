@@ -1,6 +1,5 @@
 .main_exam{
     padding: 30px 20px 20px 20px;
-    overflow: hidden;
     background-color: white;
     box-shadow: inset 0px 0px 50px 1px rgb(197, 236, 223);
 }
@@ -37,7 +36,7 @@
 }
 
 .content {
-    position: absolute;
+    position:absolute;
     top: 28px;
     left: 0;
     background: white;
@@ -45,6 +44,7 @@
     bottom: 0;
     padding: 20px;
     border: 1px solid #ccc; 
+    direction: rtl;
 }
 
 .for_NAV[type=radio]:checked ~ label {
@@ -54,5 +54,5 @@
 }
 
 .for_NAV[type=radio]:checked ~ label ~ .content {
-    z-index: 1;
+    z-index: 3;
 }

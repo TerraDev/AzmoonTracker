@@ -3,11 +3,11 @@ import '../../styles/Forms.css'
 import {useForm} from "react-hook-form"
 import LoginUser from '../../adapters/User/Login'
 import {storeToken} from '../../adapters/User/handleToken'
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup';
 
 
-export default function Login() {
+export default function Login(props) {
 
 const validationSchema = Yup.object().shape({
     Email: Yup.string()
@@ -30,7 +30,8 @@ const validationSchema = Yup.object().shape({
         console.log(response.status)
         console.log(response.data);
         storeToken(response.data);
-        window.location.reload()
+        props.history.push("/");
+        window.location.reload();
     }
 
     return (

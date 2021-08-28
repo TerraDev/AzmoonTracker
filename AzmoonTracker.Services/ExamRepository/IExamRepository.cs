@@ -27,6 +27,8 @@ namespace AzmoonTracker.Services.ExamRepository
         //Get All Exams
         ICollection<ExamViewModel> GetAllExams();
 
+        ICollection<ExamViewModel> SearchExams(string searchString);
+
         Task<bool> SaveChangesAsync();
     }
 }

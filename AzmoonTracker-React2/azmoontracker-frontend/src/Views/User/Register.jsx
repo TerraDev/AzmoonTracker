@@ -5,7 +5,7 @@ import RegisterUser from "../../adapters/User/PostRegister"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-export default function Register() {
+export default function Register(props) {
 
     const validationSchema = Yup.object().shape({
         Username: Yup.string()
@@ -29,12 +29,9 @@ export default function Register() {
 
     const onSubmit = async (data) =>
     {
-        console.log(data);
         const response = await RegisterUser();
-        //this.setState({
-        //  exams: response.data,
-        //})
-        console.log(response.data);
+        props.history.push("/");
+        window.location.reload();
     }
 
     return (

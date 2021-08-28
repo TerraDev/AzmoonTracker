@@ -74,3 +74,4 @@ F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Micro
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\AzmoonTracker.ViewModels.dll
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\AzmoonTracker.ViewModels.pdb
 F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\Behdad2\Projects\ASP CORE\Azmoon Tracker\AzmoonTracker\bin\Debug\net5.0\Newtonsoft.Json.dll

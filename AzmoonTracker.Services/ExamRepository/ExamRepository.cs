@@ -161,6 +161,30 @@ namespace AzmoonTracker.Services.ExamRepository
             return true;
         }
 
+        public ICollection<ExamViewModel> SearchExams(string searchString)
+        {
+            List<Exam> exams = ctx.Exams.Where(o => o.ExamSearchId.ToLower()
+            .Contains(searchString.ToLower())).ToList();
+
+            ICollection<ExamViewModel> examViews = new List<ExamViewModel>();
+            foreach (Exam exam in exams)
+            {
+                examViews.Add(new ExamViewModel
+                {
+                    ExamId = exam.ExamId,
+                    ExamSearchId = exam.ExamSearchId,
+                    ExamName = exam.ExamName,
+                    ClassName = exam.ClassName,
+                    StartTime = exam.StartTime,
+                    EndTime = exam.EndTime,
+                    QuestionNum = exam.QuestionNum,
+                    IsFinished = exam.IsFinished,
+                    IsPublic = exam.IsPublic
+                });
+            }
+            return examViews;
+        }
+
         public bool DeleteExam(string examId)
         {
             ctx.Exams.Remove(ctx.Exams.Find(examId));

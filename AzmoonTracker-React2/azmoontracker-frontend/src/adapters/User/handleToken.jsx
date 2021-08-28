@@ -4,7 +4,7 @@ import { reRenderNavbar } from "../../Views/TopNav";
 //change name to getTokenfromStorage and return entire token or null
 export function checkforToken(){
   var jwt = localStorage.getItem('AzmoonTracker_jwt')
-  return jwt ? "Mike" : null
+  return jwt ? true : null
 }
 
 export function getToken()
@@ -16,7 +16,11 @@ export function getToken()
 export function storeToken(Info){
 localStorage.setItem('AzmoonTracker_jwt', JSON.stringify({
     token: Info.token,
-    loggedIn: true
-    //username: Info.username
+    loggedIn: true,
+    username: Info.username
     }))
+}
+
+export function RemoveToken(){
+  localStorage.removeItem('AzmoonTracker_jwt')
 }

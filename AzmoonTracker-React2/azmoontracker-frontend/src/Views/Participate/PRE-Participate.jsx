@@ -84,12 +84,12 @@ export default function PRE_Participate(props)
                     if(before)
                     {
                         setHtmlButtons(<><button onClick={()=>{props.history.push("/CreateExam/"+examId)}}>Edit exam</button>
-                        <button onClick={()=>{DeleteExam(examId);props.history.push("/")}}>Delete exam</button>
-                        <button>Participants</button></>)
+                        <button className="warn" onClick={()=>{DeleteExam(examId);props.history.push("/")}}>Delete exam</button>
+                        <button onClick={()=>{props.history.push("/Answers/"+examId)}}>Participants</button></>)
                     }
                     else if(current)
                     {
-                        setHtmlButtons(<><button>Proctor exam</button>
+                        setHtmlButtons(<><button onClick={()=>{props.history.push("/Proctor/"+examId)}}>Proctor exam</button>
                         <button onClick={()=>{props.history.push("/Answers/"+examId)}}>Participants</button></>)
                     }
                     else //after
@@ -103,7 +103,7 @@ export default function PRE_Participate(props)
                     if(before)
                     {
                         setHtmlButtons(<><button disabled={true}>start exam</button>
-                        <button onClick={()=>{UnenrollfromExam(examId);window.location.reload()}}>unenroll</button></>)
+                        <button className="warn" onClick={()=>{UnenrollfromExam(examId);window.location.reload()}}>unenroll</button></>)
                     }
                     else if(current)
                     {
@@ -133,5 +133,5 @@ export default function PRE_Participate(props)
 
     return !toExam ?
     (htmlButtons && examDetails ? <Participate Buttons={htmlButtons} Exam={examDetails} /> : <div>Loading...</div>)
-    :<PRE_TakeExam examId={props.match.params.ExamId}></PRE_TakeExam> 
+    :<PRE_TakeExam examId={props.match.params.ExamId} ></PRE_TakeExam> 
 }

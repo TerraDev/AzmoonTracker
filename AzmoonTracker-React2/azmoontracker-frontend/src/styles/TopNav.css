@@ -10,6 +10,7 @@
 }
 
 .topnav a {
+  display: inline-block;
   color: black;
   text-align: center;
   padding: 14px 16px;
@@ -33,4 +34,76 @@
 .topnav a.active {
   background-color: #5d80f3ce;
   color: white;
+}
+
+.topnav .expandable
+{
+  float: right;
+  margin-right: 30px;
+  cursor: pointer;
+  display: none;
+  background-color: rgba(99, 201, 138, 0.5);
+}
+
+#res-menu{
+  display: none;
+}
+
+@media (max-width: 870px)
+{
+
+  .topnav .expandable
+  {
+    display: inline-block;
+  }
+
+  .topnav a:not(.expandable)
+  {
+    position: relative;
+    display: none;
+    width: 100vw;
+    text-align:center;
+    
+    /*height: 100vh;*/
+    /*transition: .5s;*/
+    z-index: 10px;
+  }
+
+  label #sign-one{
+    display: block;
+  }
+
+  .topnav a.right,
+  .topnav a.left 
+  {
+    float: none;
+  }
+/*
+  .topnav .cont{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 50px;
+    left:-100%;
+    text-align: center;
+    transition: .5s;
+    z-index: 10px;
+  }
+
+  .topnav .cont a{
+    display: block;
+    line-height: 30px;
+  };
+*/
+  #res-menu:checked ~ a{
+    display: inline-block;
+  }
+
+  #res-menu:checked ~ label #sign-one{
+    display: none;
+  }
+
+  /*#res-menu:checked ~ label #sign-two{
+    display: block;
+  } */
 }

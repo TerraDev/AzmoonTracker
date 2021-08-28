@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import {useForm} from "react-hook-form"
+import SubmitAllAnswers from '../../adapters/Answers/SubmitAllAnswers';
 import '../../styles/TakeExam.css'
 import Timer from './Timer';
+import Webcam from './Webcam';
 
 export default function TakeExam({exam, ans}) {
     
@@ -11,20 +13,25 @@ export default function TakeExam({exam, ans}) {
     //const [answers,setAnswers] = useState(null);
 
     const {register, handleSubmit, /*formState: {errors} ,*/ setValue, getValues} = useForm({
-        defaultValues: {ans:ans}
+        defaultValues: {Answers:ans}
     });
 
     //const response = {}
 
     const onSubmit = (data) =>
     {
+        data.ExamName = exam.examName ;
+        data.UserName = "";
+
         console.log(data);
+        SubmitAllAnswers(data,exam.examId)
     }
 
     return (
         <div className="main_exam">
             <h1>exam title: {exam?.examName}</h1>
-            <Timer examPeriod={200} initTime={new Date(2021, 8-1, 17, 18,55,0,0)} /*initTime={exam.StartTime}*//>
+            <Webcam />
+            <Timer endTime={new Date(exam.endTime)} initTime={new Date(exam.startTime)} />
             <h2>class name:
             <br/>
             {exam?.className}
@@ -71,10 +78,10 @@ export default function TakeExam({exam, ans}) {
                                 <div className="content">
                                     {question.questionDescription}
                                     <br/>
-                                    <input /*name={`ans[${question.questionNum-1}].answerText`}*/ type="text" style={{width: "95%"}} 
-                                    {...register(`ans[${question.questionNum-1}].answerText`)}/>
+                                    <textarea /*name={`ans[${question.questionNum-1}].answerText`}*/ style={{width: "95%"}} 
+                                    {...register(`Answers[${question.questionNum-1}].answerText`)}/>
 
-                                    <input type="text" {...register(`ans[${question.questionNum-1}].questionId`,
+                                    <input type="number" {...register(`Answers[${question.questionNum-1}].questionId`,
                                     {valueAsNumber:true})} readOnly hidden/>
                                 </div> 
                             </div>

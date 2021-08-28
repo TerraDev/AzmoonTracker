@@ -6,11 +6,12 @@ import Login from "../Views/User/Login"
 import Register from "../Views/User/Register"
 import NotFound from "../Views/NotFound";
 import "../styles/Layout.css"
-import MainExamsView from "../Views/Exams/MainExamsView";
-//import PRE_TakeExam from "../Views/TakeExam/PRE-TakeExam";
+//import MainExamsView from "../Views/Exams/MainExamsView";
 import PRE_ExamCreation from "../Views/ExamCreation/PRE-ExamCreation";
 import PRE_Participate from "../Views/Participate/PRE-Participate";
 import PRE_Answers from "../Views/Participate/PRE-Answers";
+import Proctor from "../Views/Participate/Proctor";
+import Landing from "../Views/LandingPage";
 
 class CentralController extends Component {
     render(){
@@ -20,10 +21,11 @@ class CentralController extends Component {
                     <TopNav />
                     <div className="container">
                     <Switch>
-                        <Route exact path="/" component={MainExamsView} />
+                        <Route exact path="/" component={Landing} />
                         <Route exact path="/CreateExam/:ExamId?" component={PRE_ExamCreation} />
                         <Route exact path="/TakeExam/:ExamId" component={PRE_Participate} />
                         <Route exact path="/Answers/:ExamId/:StudentId?" component={PRE_Answers} />
+                        <Route exact path="/Proctor/:ExamId" component={Proctor} />
                         <Route exact path="/Login" component={Login} />
                         <Route exact path="/Register" component={Register} />
                         <Route component={NotFound} />

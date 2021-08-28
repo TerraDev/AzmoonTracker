@@ -1,0 +1,64 @@
+.webcam{
+    position: fixed;
+    top: 35px;
+    left: 40px;
+    right: 40px;
+    bottom: 25px;
+    overflow: hidden;
+
+    display: grid;
+    grid-column: 1;
+    grid-template-columns: minmax(20%,500px);
+    grid-template-rows: minmax(20%,500px) 10%;
+    justify-content: center;
+    align-items: center;
+
+    background-color: aquamarine;
+    border: 4px solid greenyellow;
+    z-index: 3;
+}
+
+.webcamView{
+    display: inherit;
+    background-color: greenyellow;
+    height: 80%;
+    max-width: 500px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.camButton{
+    display: inherit;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/*
+#camTrigger{
+    position: fixed;
+    top: 35px;
+    left: 40px;
+    z-index: 4;
+}
+*/
+#camTrigger:checked ~ .webcam{
+    display: none;
+}
+
+label #camExpand
+{
+    position: fixed;
+    top: 35px;
+    left: 40px;
+    z-index: 5;
+
+    background-color: rgba(223, 233, 80, 0.582);
+    color: rgba(143, 64, 0, 0.616);
+    border: rgba(243, 107, 107, 0.815) solid 3px;
+    font-size: x-large;
+}
+
+#camTrigger{
+    display: none;
+}

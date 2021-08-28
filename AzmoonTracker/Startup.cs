@@ -1,3 +1,4 @@
+using AzmoonTracker.Hubs;
 using AzmoonTracker.Infrastacture;
 using AzmoonTracker.Models;
 using AzmoonTracker.Services;
@@ -98,6 +99,8 @@ namespace AzmoonTracker
                        .AllowAnyOrigin()
                        )) ;
 
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(
             swagger => {
@@ -152,6 +155,7 @@ namespace AzmoonTracker
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<SignalRTCHub>("/signalrtc");
                 endpoints.MapControllers();
             });
         }

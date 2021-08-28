@@ -105,6 +105,15 @@ namespace AzmoonTracker.Controllers
             return Ok();
         }
 
+        [HttpGet("Search")] 
+        public IActionResult SearchExams(string searchString)
+        {
+            //searchString is not identified in route, so it's called as query
+            //i.e. api/Exam/Search?searchString=Exam&...
+
+            return Ok(examRepository.SearchExams(searchString));
+        }
+
         [Authorize]
         [HttpGet("GetParticipants/{ExamId}")]
         public IActionResult GetExamParticipants(string ExamId)

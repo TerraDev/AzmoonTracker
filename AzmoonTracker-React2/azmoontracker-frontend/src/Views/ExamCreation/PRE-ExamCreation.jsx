@@ -31,7 +31,7 @@ export default function PRE_ExamCreation(props)
         }
         GetExamData(props.match.params.ExamId)
     },[]) */
-
+    console.log(props.history)
     const ExamId = props?.match?.params?.ExamId
     const isLoggedin = getToken()?.token
 
@@ -54,14 +54,13 @@ export default function PRE_ExamCreation(props)
 
     console.log("in PRE-creation phase")
 
-
     //return props.ExamId ? <ExamCreation Exam={await GetExamData(props.ExamId)}/> : <ExamCreation/>
     return  isLoggedin ? (
         ExamId ? (
             exam ? (
-                isCreator ? <ExamCreation Exam={exam}/> 
+                isCreator ? <ExamCreation Exam={exam} history={props.history}/> 
                 : <div>Unauthorized!!</div>
             ): <div>Loading...</div>
-        ): <ExamCreation/>
+        ): <ExamCreation history={props.history}/>
     ): <div>Please login to continue</div>
 }

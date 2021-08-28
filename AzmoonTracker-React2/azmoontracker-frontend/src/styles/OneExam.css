@@ -8,6 +8,7 @@
     box-shadow: inset 0px 0px 60px 20px #7cb4cc;
     -webkit-box-reflect: right 0px -webkit-gradient(linear, left top, right top,  from(transparent), color-stop(87%, transparent), to(rgba(255, 255, 255, 0.18)));
     margin-bottom: 27px;
+    text-decoration: none;
 }
 
 .exam_card img{
@@ -15,5 +16,15 @@
     height: 40%;
     opacity: 0.8;
     margin-bottom: 10px;
+}
+
+.exam_card:hover {
+    background-color: rgb(61, 121, 199);
+    cursor: pointer;
+    color: azure;
+}
+    /*:hover with space means child elements (here it's labels)*/
+.exam_card :hover{
+    cursor: pointer;
 }
 
