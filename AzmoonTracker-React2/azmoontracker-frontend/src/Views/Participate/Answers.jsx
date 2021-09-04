@@ -17,7 +17,9 @@ export default function Answers({answers, exam})
                         Question # {questionId} :{exam.questions[idx].questionDescription}
                         {/*console.log({questionId, answerText, idx})*/}
                         <br /> 
+                        <p style={{direction:"rtl"}}>
                         User's Answer: {answerText}
+                        </p>
                     </Fragment>
                 )
             }

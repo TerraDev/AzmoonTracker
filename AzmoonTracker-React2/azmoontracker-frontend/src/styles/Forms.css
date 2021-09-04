@@ -23,6 +23,7 @@ select {
 
 textarea{
   resize: vertical;
+  direction: rtl;
 }
 
 input[type="submit"],

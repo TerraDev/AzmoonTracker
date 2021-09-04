@@ -15,8 +15,6 @@ export default function Participate({Buttons, Exam})
             <br />
             End Time: {Exam.endTime}
             <br />
-            Creator: ---
-            <br/>
             <br/>
             {
                 Buttons

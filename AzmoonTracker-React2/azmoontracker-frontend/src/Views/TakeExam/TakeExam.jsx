@@ -1,11 +1,20 @@
-import React, {useState} from 'react'
-import {useForm} from "react-hook-form"
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form"
 import SubmitAllAnswers from '../../adapters/Answers/SubmitAllAnswers';
 import '../../styles/TakeExam.css'
 import Timer from './Timer';
 import Webcam from './Webcam';
 
 export default function TakeExam({exam, ans}) {
+
+    var warn = useRef(1)
+
+    useEffect(()=>{
+        window.addEventListener('blur', function (event) {
+            alert("Don't cheat! Warning #" + warn.current)
+            warn.current++
+        });
+    },[])
     
     console.log({exam, ans})
     //const [exam,setExam] = useState(props.exam);

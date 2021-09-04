@@ -29,7 +29,7 @@ export default function Register(props) {
 
     const onSubmit = async (data) =>
     {
-        const response = await RegisterUser();
+        const response = await RegisterUser(data);
         props.history.push("/");
         window.location.reload();
     }

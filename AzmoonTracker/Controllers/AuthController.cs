@@ -71,7 +71,7 @@ namespace AzmoonTracker.Controllers
                 IsSuccessful = false
             });
         }
-
+        /*
         [HttpGet("Profile")]
         [Authorize]
         public IActionResult GetUserProfile() //probably should input the token also
@@ -90,6 +90,6 @@ namespace AzmoonTracker.Controllers
                 UserName=userName,
                 Email=userEmail
             });
-        }
+        }*/
     }
 }

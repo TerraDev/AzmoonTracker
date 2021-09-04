@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {}
+    "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {}
   },
   "projects": {
-    "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {
+    "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj",
+        "projectUniqueName": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj",
         "projectName": "AzmoonTracker.Models",
-        "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj",
+        "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj",
         "packagesPath": "F:\\visual studio\\nuget cache",
-        "outputPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\obj\\",
+        "outputPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

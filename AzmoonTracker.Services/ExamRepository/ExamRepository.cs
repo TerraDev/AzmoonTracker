@@ -18,8 +18,7 @@ namespace AzmoonTracker.Services.ExamRepository
         private readonly ITakeExamRepository TexamRepo;
 
         public ExamRepository(AppDbContext _ctx, UserManager<AppUser> _userManager
-            , ITakeExamRepository _TexamRepo
-            )
+            , ITakeExamRepository _TexamRepo)
         {
             ctx = _ctx;
             userManager = _userManager;

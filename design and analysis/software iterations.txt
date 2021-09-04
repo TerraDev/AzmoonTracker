@@ -1,5 +1,13 @@
 software iterations:
 
+-> E-commerce analysis
+-> Requirements analysis
+-> Design and analysis(modelling) [HCI interaction]
+-> Implementation
+-> Test
+-> Deploy [for future]
+
+
 iteration 1:
 -Exam CRUD (for examinor)
 -View All exams [main page]
@@ -14,3 +22,6 @@ iteration 3:
 
 iteration 4:
 -Webcam setup & live video streamin
+
+--------------------------------------------------------------
+

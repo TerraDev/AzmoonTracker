@@ -7586,11 +7586,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj",
+      "projectUniqueName": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj",
       "projectName": "AzmoonTracker.Infrastructure",
-      "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj",
+      "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj",
       "packagesPath": "F:\\visual studio\\nuget cache",
-      "outputPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\obj\\",
+      "outputPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7610,8 +7610,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {
-              "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj"
+            "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj": {
+              "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Models\\AzmoonTracker.Models.csproj"
             }
           }
         }

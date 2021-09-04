@@ -8039,11 +8039,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\AzmoonTracker.csproj",
+      "projectUniqueName": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\AzmoonTracker.csproj",
       "projectName": "AzmoonTracker",
-      "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\AzmoonTracker.csproj",
+      "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\AzmoonTracker.csproj",
       "packagesPath": "F:\\visual studio\\nuget cache",
-      "outputPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\obj\\",
+      "outputPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -8063,11 +8063,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj": {
-              "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj"
+            "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj": {
+              "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Infrastructure\\AzmoonTracker.Infrastructure.csproj"
             },
-            "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Services\\AzmoonTracker.Services.csproj": {
-              "projectPath": "F:\\Behdad2\\Projects\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Services\\AzmoonTracker.Services.csproj"
+            "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Services\\AzmoonTracker.Services.csproj": {
+              "projectPath": "F:\\Behdad2\\A\\ASP CORE\\Azmoon Tracker\\AzmoonTracker.Services\\AzmoonTracker.Services.csproj"
             }
           }
         }
