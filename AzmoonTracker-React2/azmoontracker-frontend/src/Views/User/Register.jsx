@@ -5,8 +5,8 @@ import RegisterUser from "../../adapters/User/PostRegister"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-export default function Register(props) {
 
+export default function Register(props) {
     const validationSchema = Yup.object().shape({
         Username: Yup.string()
             .required('Username is required')
@@ -17,7 +17,7 @@ export default function Register(props) {
             .email('Email is invalid'),
         Password: Yup.string()
             .required('Password is required')
-            .min(8, 'Password must be at least 8 characters')
+            .min(6, 'Password must be at least 6 characters')
             .max(40, 'Password must not exceed 40 characters'),
         ConfirmPassword: Yup.string()
             .required('Confirm Password is required')
@@ -41,7 +41,7 @@ export default function Register(props) {
                     <input type="text" id="Username" placeholder="Enter Username" name="Username"
                     {...register("Username")}/>
                 </div>
-                {errors.Username && <p>{errors.Username.message}</p>}
+                {errors.Username && <p style={{color: "red"}}>{errors.Username.message}</p>}
                 <br/>
 
                 <div>
@@ -49,7 +49,7 @@ export default function Register(props) {
                     <input type="email" id="Email" placeholder="example@example.com" name="Email"
                     {...register("Email")}/>
                 </div>
-                {errors.Email && <p>{errors.Email.message}</p>}
+                {errors.Email && <p style={{color: "red"}}>{errors.Email.message}</p>}
                 <br/>
 
                 <div>
@@ -57,7 +57,7 @@ export default function Register(props) {
                     <input type="password" id="Password" placeholder="Enter Password" name="Password"
                     {...register("Password")}/>
                 </div>
-                {errors.Password && <p>{errors.Password.message}</p>}
+                {errors.Password && <p style={{color: "red"}}>{errors.Password.message}</p>}
                 <br/>
 
                 <div>
@@ -66,7 +66,7 @@ export default function Register(props) {
                     {...register("ConfirmPassword")}/>
                 </div>
 
-                {errors.ConfirmPassword && <p>{errors.ConfirmPassword.message}</p>}
+                {errors.ConfirmPassword && <p style={{color: "red"}}>{errors.ConfirmPassword.message}</p>}
                 <br/>
 
                 <button type="submit" >submit</button>

@@ -12,6 +12,8 @@ import PRE_Participate from "../Views/Participate/PRE-Participate";
 import PRE_Answers from "../Views/Participate/PRE-Answers";
 import Proctor from "../Views/Participate/Proctor";
 import Landing from "../Views/LandingPage";
+import ContactUs from "../Views/ContactUs";
+import About from "../Views/About";
 
 class CentralController extends Component {
     render(){
@@ -28,6 +30,8 @@ class CentralController extends Component {
                         <Route exact path="/Proctor/:ExamId" component={Proctor} />
                         <Route exact path="/Login" component={Login} />
                         <Route exact path="/Register" component={Register} />
+                        <Route exact path="/ContactUs" component={ContactUs} />
+                        <Route exact path="/About" component={About} />
                         <Route component={NotFound} />
                     </Switch>
                     </div>

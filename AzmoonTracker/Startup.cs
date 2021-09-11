@@ -105,7 +105,7 @@ namespace AzmoonTracker
             services.AddSwaggerGen(
             swagger => {
                 swagger.SwaggerDoc(
-                "v1", new OpenApiInfo { Title = "BShop API" });
+                "v1", new OpenApiInfo { Title = "AzmoonTracker API" });
 
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -127,7 +127,7 @@ namespace AzmoonTracker
                         }
                     },
                     new string[] { }
-                  }
+                }
                 });
             });
         }

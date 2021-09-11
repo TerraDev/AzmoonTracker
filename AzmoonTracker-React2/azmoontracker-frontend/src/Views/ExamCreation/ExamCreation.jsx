@@ -68,7 +68,7 @@ export default function ExamCreation(props) {
                     <input type="text" placeholder="enter exam title" 
                     {...register("examName")} />
                 </div>
-                {errors.examName && <p>{errors.examName.message}</p>}
+                {errors.examName && <p style={{color: "red"}}>{errors.examName.message}</p>}
                 <br/>
                 <div>
                     <label>exam search id:</label>

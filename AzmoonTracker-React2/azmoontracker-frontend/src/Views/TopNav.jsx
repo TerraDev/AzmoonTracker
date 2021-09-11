@@ -30,8 +30,8 @@ export default function TopNav () {
                 <NavLink onClick={unexpand} to="/Register" exact className="left" activeClassName="active">Register</NavLink>
             </>
             }
-            <a onClick={unexpand} href="#contact" className="right">Contact us</a>
-            <a onClick={unexpand} href="#about" className="right">About</a>
+            <NavLink onClick={unexpand} to="/ContactUs" exact className="right" activeClassName="active">Contact us</NavLink>
+            <NavLink onClick={unexpand} to="/About" exact className="right" activeClassName="active">About</NavLink>
     </nav>
     )
 }

@@ -41,15 +41,15 @@ const validationSchema = Yup.object().shape({
                     <input type="email" id="Email" placeholder="example@example.com" name="Email"
                     {...register("Email")}/>
                 </div>
-                {errors.Email && <p>{errors.Email.message}</p>}
+                {errors.Email && <p style={{color: "red"}}>{errors.Email.message}</p>}
                 <br/>
 
                 <div>
                     <label>Password:</label>
-                    <input type="text" id="Password" placeholder="Enter Password" name="Password"
+                    <input type="password" id="Password" placeholder="Enter Password" name="Password"
                     {...register("Password")}/>
                 </div>
-                {errors.Password && <p>{errors.Password.message}</p>}
+                {errors.Password && <p style={{color: "red"}}>{errors.Password.message}</p>}
                 <br/>
 
                 <button>submit</button>
