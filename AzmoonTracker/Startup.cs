@@ -97,7 +97,7 @@ namespace AzmoonTracker
                 builder.AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowAnyOrigin()
-                       )) ;
+                       ));
 
             services.AddSignalR();
 

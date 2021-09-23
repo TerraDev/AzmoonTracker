@@ -8,7 +8,7 @@ export default function Answers({answers, exam})
             <p> {answers.userName} </p>
             <br />
             <b> exam name: </b> {answers.examName}
-            <br/>
+            <br />
             {
                 answers.answers.map(({questionId, answerText},idx)=>
                     <Fragment key={questionId}>
